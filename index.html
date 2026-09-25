@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SOLOQ — Perpustakaan Komunitas</title>
+
+  <style>
+    :root {
+      --tinta: #29372f;
+      --hijau: #536b55;
+      --kertas: #f5f1e7;
+      --putih: #fffdf7;
+      --abu: #73786f;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--tinta);
+      background:
+        radial-gradient(ellipse at 10% 15%, #d9e5d5 0, transparent 32%),
+        radial-gradient(ellipse at 90% 35%, #efd5bd 0, transparent 30%),
+        radial-gradient(ellipse at 65% 95%, #d0e0e2 0, transparent 35%),
+        var(--kertas);
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 7%;
+      background: #f5f1e7ed;
+      border-bottom: 1px solid #29372f22;
+      backdrop-filter: blur(10px);
+    }
+
+    .logo {
+      font-weight: bold;
+      font-size: 1.3rem;
+      letter-spacing: 0.2em;
+    }
+
+    nav a {
+      margin-left: 20px;
+      color: var(--tinta);
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    nav a:hover {
+      color: var(--hijau);
+    }
+
+    header {
+      min-height: 65vh;
+      display: grid;
+      place-items: center;
+      padding: 70px 8%;
+      text-align: center;
+    }
+
+    .hero {
+      max-width: 760px;
+    }
+
+    .label {
+      color: var(--hijau);
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 18px 0;
+      font-size: clamp(4rem, 13vw, 8rem);
+      letter-spacing: 0.13em;
+    }
+
+    .hero p {
+      color: #48564c;
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      line-height: 1.8;
+    }
+
+    .elemen {
+      margin-top: 28px;
+      font-size: 1.6rem;
+      letter-spacing: 0.5em;
+    }
+
+    main {
+      width: min(960px, 90%);
+      margin: 0 auto;
+    }
+
+    section {
+      padding: 55px 0;
+      scroll-margin-top: 75px;
+    }
+
+    .judul-bagian {
+      margin: 12px 0 24px;
+      font-size: clamp(2rem, 5vw, 3rem);
+    }
+
+    .panel,
+    .kartu-buku {
+      padding: clamp(22px, 5vw, 40px);
+      border: 1px solid #536b5533;
+      border-radius: 18px;
+      background: #fffdf7e8;
+      box-shadow: 0 16px 45px #27392a12;
+    }
+
+    .form-buku {
+      display: grid;
+      gap: 14px;
+    }
+
+    .form-buku label {
+      display: grid;
+      gap: 7px;
+      font-weight: bold;
+    }
+
+    .form-buku input,
+    .form-buku textarea {
+      width: 100%;
+      padding: 13px 14px;
+      color: var(--tinta);
+      background: #fffefa;
+      border: 1px solid #b8c0b4;
+      border-radius: 9px;
+      font: 1rem Arial, sans-serif;
+    }
+
+    .form-buku textarea {
+      min-height: 220px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+
+    button {
+      min-height: 44px;
+      padding: 11px 18px;
+      border: 0;
+      border-radius: 25px;
+      color: white;
+      background: var(--hijau);
+      font: inherit;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #405742;
+    }
+
+    .tombol-batal {
+      color: var(--tinta);
+      background: #e8e7dc;
+    }
+
+    .tombol-batal:hover {
+      background: #d9dacd;
+    }
+
+    .aksi-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pesan {
+      min-height: 1.4em;
+      color: var(--hijau);
+      font-size: 0.95rem;
+    }
+
+    .daftar-buku {
+      display: grid;
+      gap: 18px;
+    }
+
+    .kartu-buku h3 {
+      margin: 0 0 7px;
+      font-size: 1.5rem;
+    }
+
+    .meta-buku {
+      margin: 0 0 18px;
+      color: var(--abu);
+      font-size: 0.95rem;
+    }
+
+    .teks-buku {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    .aksi-buku {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid #536b552c;
+    }
+
+    .tombol-hapus {
+      background: #87584d;
+    }
+
+    .tombol-hapus:hover {
+      background: #70463d;
+    }
+
+    .kosong {
+      padding: 25px;
+      color: var(--abu);
+      text-align: center;
+      border: 1px dashed #536b5570;
+      border-radius: 14px;
+    }
+
+    .tentang {
+      white-space: pre-line;
+      font-size: 1.1rem;
+      line-height: 1.9;
+    }
+
+    footer {
+      padding: 35px 15px;
+      color: var(--abu);
+      text-align: center;
+    }
+
+    @media (max-width: 560px) {
+      nav {
+        padding: 14px 5%;
+      }
+
+      nav a {
+        margin-left: 10px;
+        font-size: 0.82rem;
+      }
+
+      .logo {
+        font-size: 1.05rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <div class="logo">SOLOQ</div>
+    <div>
+      <a href="#perpustakaan">Perpustakaan</a>
+      <a href="#tentang">Tentang SOLOQ</a>
+    </div>
+  </nav>
+
+  <header>
+    <div class="hero">
+      <div class="label">Perpustakaan komunitas</div>
+      <h1>SOLOQ</h1>
+      <p>Ruang untuk membaca, menulis, dan berbagi pengetahuan bersama.</p>
+      <div class="elemen" aria-label="Tanah, air, api, udara">♧　≈　♨　✧</div>
+    </div>
+  </header>
+
+  <main>
+    <section id="tambah-buku">
+      <div class="label">Berbagi tulisan</div>
+      <h2 class="judul-bagian">Tambahkan Buku</h2>
+
+      <div class="panel">
+        <form class="form-buku" id="formBuku">
+          <label>
+            Judul buku
+            <input id="judul" type="text" placeholder="Contoh: Cerita dari Tanah" required>
+          </label>
+
+          <label>
+            Nama penulis
+            <input id="penulis" type="text" placeholder="Nama penulis" required>
+          </label>
+
+          <label>
+            Isi buku
+            <textarea id="isi" placeholder="Tuliskan isi buku di sini..." required></textarea>
+          </label>
+
+          <div class="aksi-form">
+            <button type="submit" id="tombolSimpan">Simpan Buku</button>
+            <button type="button" class="tombol-batal" id="tombolBatal" hidden>
+              Batal Edit
+            </button>
+          </div>
+
+          <div class="pesan" id="pesan" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+
+    <section id="perpustakaan">
+      <div class="label">Koleksi komunitas</div>
+      <h2 class="judul-bagian">Perpustakaan</h2>
+      <div class="daftar-buku" id="daftarBuku"></div>
+    </section>
+
+    <section id="tentang">
+      <div class="label">Akar dan semesta</div>
+      <h2 class="judul-bagian">Tentang SOLOQ</h2>
+      <div class="panel tentang">SOLOQ
+adalah suatu komunitas literasi yang dikerjakan secara bergandengan tangan. Ia lahir bukan karena keresahan, melainkan karena cinta akan pengetahuan tanah, air, api dan udara di semesta raya.
+Ia adalah sebuah upaya akar rumput untuk mencipta masyarakat dengan kesadaran yang lebih segar dan kaya akan pengertian-pengertian.</div>
+    </section>
+  </main>
+
+  <footer>SOLOQ · Tumbuh bersama pengetahuan</footer>
+
+  <script>
+    const KUNCI_PENYIMPANAN = "soloq-daftar-buku";
+
+    const form = document.getElementById("formBuku");
+    const inputJudul = document.getElementById("judul");
+    const inputPenulis = document.getElementById("penulis");
+    const inputIsi = document.getElementById("isi");
+    const daftarBuku = document.getElementById("daftarBuku");
+    const pesan = document.getElementById("pesan");
+    const tombolSimpan = document.getElementById("tombolSimpan");
+    const tombolBatal = document.getElementById("tombolBatal");
+
+    let buku = bacaBuku();
+    let idSedangDiedit = null;
+
+    function bacaBuku() {
+      try {
+        const data = localStorage.getItem(KUNCI_PENYIMPANAN);
+        return data ? JSON.parse(data) : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function simpanKePerangkat() {
+      localStorage.setItem(KUNCI_PENYIMPANAN, JSON.stringify(buku));
+    }
+
+    function tampilkanBuku() {
+      daftarBuku.replaceChildren();
+
+      if (buku.length === 0) {
+        const kosong = document.createElement("div");
+        kosong.className = "kosong";
+        kosong.textContent = "Belum ada buku. Tambahkan buku pertama SOLOQ di atas.";
+        daftarBuku.appendChild(kosong);
+        return;
+      }
+
+      buku.forEach((item) => {
+        const kartu = document.createElement("article");
+        kartu.className = "kartu-buku";
+
+        const judul = document.createElement("h3");
+        judul.textContent = item.judul;
+
+        const penulis = document.createElement("p");
+        penulis.className = "meta-buku";
+        penulis.textContent = "Ditulis oleh " + item.penulis;
+
+        const isi = document.createElement("div");
+        isi.className = "teks-buku";
+        isi.textContent = item.isi;
+
+        const aksi = document.createElement("div");
+        aksi.className = "aksi-buku";
+
+        const tombolEdit = document.createElement("button");
+        tombolEdit.type = "button";
+        tombolEdit.textContent = "Edit";
+        tombolEdit.addEventListener("click", () => mulaiEdit(item.id));
+
+        const tombolHapus = document.createElement("button");
+        tombolHapus.type = "button";
+        tombolHapus.className = "tombol-hapus";
+        tombolHapus.textContent = "Hapus";
+        tombolHapus.addEventListener("click", () => hapusBuku(item.id));
+
+        aksi.append(tombolEdit, tombolHapus);
+        kartu.append(judul, penulis, isi, aksi);
+        daftarBuku.appendChild(kartu);
+      });
+    }
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const dataBuku = {
+        judul: inputJudul.value.trim(),
+        penulis: inputPenulis.value.trim(),
+        isi: inputIsi.value.trim()
+      };
+
+      if (!dataBuku.judul || !dataBuku.penulis || !dataBuku.isi) {
+        pesan.textContent = "Lengkapi judul, penulis, dan isi buku.";
+        return;
+      }
+
+      if (idSedangDiedit) {
+        const index = buku.findIndex((item) => item.id === idSedangDiedit);
+        if (index !== -1) {
+          buku[index] = { ...buku[index], ...dataBuku };
+        }
+        pesan.textContent = "Perubahan buku berhasil disimpan.";
+      } else {
+        buku.unshift({
+          id: Date.now().toString(),
+          ...dataBuku
+        });
+        pesan.textContent = "Buku berhasil ditambahkan.";
+      }
+
+      simpanKePerangkat();
+      tampilkanBuku();
+      form.reset();
+      selesaiEdit();
+      document.getElementById("perpustakaan").scrollIntoView();
+    });
+
+    function mulaiEdit(id) {
+      const item = buku.find((bukuItem) => bukuItem.id === id);
+      if (!item) return;
+
+      idSedangDiedit = id;
+      inputJudul.value = item.judul;
+      inputPenulis.value = item.penulis;
+      inputIsi.value = item.isi;
+      tombolSimpan.textContent = "Simpan Perubahan";
+      tombolBatal.hidden = false;
+      pesan.textContent = "Mode edit: ubah teks lalu simpan perubahan.";
+      document.getElementById("tambah-buku").scrollIntoView();
+      inputJudul.focus();
+    }
+
+    function selesaiEdit() {
+      idSedangDiedit = null;
+      tombolSimpan.textContent = "Simpan Buku";
+      tombolBatal.hidden = true;
+    }
+
+    function hapusBuku(id) {
+      const yakin = confirm("Hapus buku ini dari perpustakaan?");
+      if (!yakin) return;
+
+      buku = buku.filter((item) => item.id !== id);
+      simpanKePerangkat();
+      tampilkanBuku();
+      pesan.textContent = "Buku sudah dihapus.";
+
+      if (idSedangDiedit === id) {
+        form.reset();
+        selesaiEdit();
+      }
+    }
+
+    tombolBatal.addEventListener("click", () => {
+      form.reset();
+      selesaiEdit();
+      pesan.textContent = "Edit dibatalkan.";
+    });
+
+    tampilkanBuku();
+  </script>
+</body>
+</html>
